@@ -18,8 +18,7 @@ using namespace std;
 int main(){
     int num1[5]; int temp;
     vector<int> num2;
-    cout<<"sf";
-    cout<<"flags";
+
     for (int i = 0; i < 5; i++)
     {
         cin >> temp;
@@ -43,7 +42,6 @@ int main(){
 
     }
 
-cout<<"000";
 
 
 
