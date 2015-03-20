@@ -12,36 +12,42 @@
 
 using namespace std;
 
-//本版本：《primer》3.42
+//本版本：《primer》12.6
+//注意离开时用delete释放
+//迭代器可看做指针（实际上指针是一种迭代器），×运算取得原元素。
 
+vector<int> *gen()
+{
+    return new vector<int>;
+
+
+}
+
+
+
+void deal(vector<int> *p)
+{
+    int in;
+    while(cin>>in)
+        p->push_back(in);
+
+
+}
+
+void print(vector<int> *p)
+{
+int it=0;
+for(auto i=p->begin();i!=p->end(),it=*i;i++)
+cout<<it;
+
+delete p;
+}
 
 int main(){
-    int num1[5]; int temp;
-    vector<int> num2;
 
-    for (int i = 0; i < 5; i++)
-    {
-        cin >> temp;
-        num2.push_back(temp);
-
-
-
-    }
-    for (int i = 0; i < 5; i++)
-    {
-        num1[i] = num2[i];
-
-
-
-    }
-    for (int i = 0; i < 5; i++)
-    {
-        cout << num1[i]<<" ";
-
-
-
-    }
-
+vector<int> *p=gen();
+deal(p);
+print(p);
 
 
 
