@@ -20,7 +20,11 @@ class HasPtr{
 public:
 HasPtr(const std::string & s=std::string()) :
 ps(new std::string(s)),i(0){}
+~HasPtr(){
+    delete ps;
 
+
+}
 HasPtr(const HasPtr& );
 string const getps (){return *ps;}
 HasPtr &operator=(const HasPtr& in){
