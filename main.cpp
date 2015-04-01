@@ -23,6 +23,13 @@ ps(new std::string(s)),i(0){}
 
 HasPtr(const HasPtr& );
 string const getps (){return *ps;}
+HasPtr &operator=(const HasPtr& in){
+
+    *ps=*(in.ps);
+    i=in.i;
+    return *this;
+
+}
 private :
 std::string *ps;
 int i;
@@ -44,11 +51,15 @@ i=in.i;
 
 
 int main(){
-    string s;
-cin>>s;
-HasPtr hp1(s);
-HasPtr hp2=hp1;
+
+HasPtr hp2("hp2");
 cout<<hp2.getps();
+string s;
+cin>>s;
+auto hp1(s);
+hp2=hp1;
+cout<<hp2.getps();
+
 cout<<"flag";
 
 
