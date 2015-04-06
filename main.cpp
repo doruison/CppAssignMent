@@ -24,6 +24,10 @@ public:
 		return n*price;
 }
 	virtual ~Quote(){};
+	virtual void  Debug(){
+		cout << "bookNo   price"<<endl;
+	
+	}
 private :string bookNo;
 protected: double price = 0;
 
@@ -42,6 +46,10 @@ public :
 			return cnt*(1 - discount)*price;
 		else return cnt*price;
 	
+	}
+	virtual void  Debug(){
+		cout << "min_qty  discount  price" << endl;
+
 	}
 private:
 	size_t min_qty = 0;
@@ -69,8 +77,12 @@ int main(){
 	Quote* qp;
 	qp = &q;
 	print_total(cout,*qp,150);
+	(*qp).Debug();
 	qp = &bq;
 	print_total(cout, *qp, 150);
+	(*qp).Debug();
+	qp->Quote::Debug();
+
 	getchar();
 
 
