@@ -14,80 +14,74 @@
 
 using namespace std;
 
-class Quote{
+
+
+class HasPtr{
 public:
-	Quote() = default;
-	Quote(const string &book, double sales_price) :bookNo(book), price(sales_price){}
-	string isbn() const { return bookNo; }
-	virtual double net_price(size_t n) const
-	{
-		return n*price;
-}
-	virtual ~Quote(){};
-	virtual void  Debug(){
-		cout << "bookNo   price"<<endl;
-	
+	HasPtr(const std::string & s = std::string()) :
+		ps(new std::string(s)), i(0),use(new int(1)){}
+	~HasPtr(){
+		if (--*use == 0)
+		{
+			delete ps;
+		
+			delete use;
+		}
+
 	}
-private :string bookNo;
-protected: double price = 0;
 
 
+	HasPtr(const HasPtr&);
+	string const getps(){ return *ps; }
+	HasPtr &operator=(const HasPtr& in){
+		++*(in.use);
+		if (--*use == 0)
+		{
+			delete ps;
 
-};
-
-class Bulk_Quote :public Quote{
-public :
-	Bulk_Quote(const string & book, double p, size_t qty, double disc) :
-		Quote(book, p), min_qty(qty), discount(disc){};
-
-	double net_price(size_t cnt)const
-	{
-		if (cnt >= min_qty)
-			return cnt*(1 - discount)*price;
-		else return cnt*price;
-	
-	}
-	virtual void  Debug(){
-		cout << "min_qty  discount  price" << endl;
+			delete use;
+		}
+		ps = in.ps;
+		use = in.use;
+		i = in.i;
+		return *this;
 
 	}
 private:
-	size_t min_qty = 0;
-	double discount = 0;
+	std::string *ps;
+	int i;
+	int * use;
 
 
 
 };
 
-double print_total(ostream &os, const Quote &item, size_t n)
-{
-	double ret = item.net_price(n);
-	os << "isbn:" << item.isbn() << "#sold:"
-		<< n << "total due :" << ret << endl;
-	return ret;
 
 
-
-
+HasPtr::HasPtr(const HasPtr &in) :
+ps(new std::string(" ")), i(0),use(0){
+	++*(in.use);
+	ps = in.ps;
+	i = in.i;
+	use = in.use;
 }
 
+
 int main(){
-	Quote q("9787121",35);
-	Bulk_Quote bq("9787121", 35, 100, 0.12);
-	Quote* qp;
-	qp = &q;
-	print_total(cout,*qp,150);
-	(*qp).Debug();
-	qp = &bq;
-	print_total(cout, *qp, 150);
-	(*qp).Debug();
-	qp->Quote::Debug();
+
+	HasPtr hp2("hp2");
+	cout << hp2.getps();
+	string s;
+	cin >> s;
+	auto hp1(s);
+	hp2 = hp1;
+	hp2 = hp2;
+	cout << hp2.getps();
+
+	cout << "flag";
 
 	getchar();
-
-
-
-
+	getchar();
 
 
 
