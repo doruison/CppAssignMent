@@ -5,6 +5,7 @@
 #include<cctype>
 #include<numeric>
 #include <memory>
+#include <gtest/gtest.h>
 
 #include <cstring>
 
@@ -44,12 +45,27 @@ void print(shared_ptr< vector<int>> p)
 	}
 }
 
-int main(){
+int foo(int a, int b)
+{
+
+	return a + b;
+}
+
+TEST(FooTest, HandleNoneZeroInput)
+{
+	EXPECT_EQ(14, foo(4, 10));
+	EXPECT_EQ(48, foo(30, 18));
+}
+
+
+
+int main(int argc,char *argv[]){
 
 	shared_ptr< vector<int>> p = gen();
 	deal(p);
 	print(p);
-
+	testing::InitGoogleTest(&argc, argv);
+	return RUN_ALL_TESTS();
 
 
 }
